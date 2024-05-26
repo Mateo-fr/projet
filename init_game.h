@@ -11,12 +11,10 @@
 typedef struct {
     int x;
     int y;
-    int numP;
 }Penguin;
 
 typedef struct {
     char name[SIZE];
-    int color;
     int score;
     int nbrPenguin;
     Penguin* penguin;
@@ -24,7 +22,6 @@ typedef struct {
 
 typedef struct{
     int stackOfFish; //nombre de poissons sur une case
-    int pinguinOwner; //Numéro du joueur à qui appartient le pinguin
     int status; //Le statut de la case (1 : case libre | 0 : casse occupée | -1 : casse cassée)
     int value; //valeur de la case (somme des poissons)
 }Hexagon;

@@ -2,83 +2,15 @@
 
 int isAnyMoveAvailable(int nbrPlayers, Player playerList[], Hexagon grid[L][C]) { 
     // Check if at least one move is available
-    
     int possible = 0;
     for (int i = 0; i < nbrPlayers; i++) {
+        printf("%d",playerList[i].nbrPenguin);
         for (int j = 0; j < playerList[i].nbrPenguin; j++) {
-            for (int k = 1; k < 7; k++) {
-                switch (k) {
-                    case 1:
-                        if (playerList[i].penguin[j].x - 1 >= 0 && grid[playerList[i].penguin[j].y][playerList[i].penguin[j].x - 1].status == 1) {
-                            possible += 1;
-                        }
-                        break;
-
-                    case 2:
-                        if (playerList[i].penguin[j].y % 2 == 0) {
-                            if (playerList[i].penguin[j].y - 1 >= 0 && playerList[i].penguin[j].x - 1 >= 0 && grid[playerList[i].penguin[j].y - 1][playerList[i].penguin[j].x - 1].status == 1) {
-                                possible += 1;
-                            }
-                        } else {
-                            if (playerList[i].penguin[j].y - 1 >= 0 && grid[playerList[i].penguin[j].y - 1][playerList[i].penguin[j].x].status == 1) {
-                                possible += 1;
-                            }
-                        }
-                        break;
-
-                    case 3:
-                        if (playerList[i].penguin[j].y % 2 == 0) {
-                            if (playerList[i].penguin[j].y + 1 < L && playerList[i].penguin[j].x - 1 >= 0 && grid[playerList[i].penguin[j].y + 1][playerList[i].penguin[j].x - 1].status == 1) {
-                                possible += 1;
-                            }
-                        } else {
-                            if (playerList[i].penguin[j].y + 1 < L && grid[playerList[i].penguin[j].y + 1][playerList[i].penguin[j].x].status == 1) {
-                                possible += 1;
-                            }
-                        }
-                        break;
-
-                    case 4:
-                        if (playerList[i].penguin[j].x + 1 < C && grid[playerList[i].penguin[j].y][playerList[i].penguin[j].x + 1].status == 1) {
-                            possible += 1;
-                        }
-                        break;
-
-                    case 5:
-                        if (playerList[i].penguin[j].y % 2 == 0) {
-                            if (playerList[i].penguin[j].y - 1 >= 0 && grid[playerList[i].penguin[j].y - 1][playerList[i].penguin[j].x].status == 1) {
-                                possible += 1;
-                            }
-                        } else {
-                            if (playerList[i].penguin[j].y - 1 >= 0 && playerList[i].penguin[j].x + 1 < C && grid[playerList[i].penguin[j].y - 1][playerList[i].penguin[j].x + 1].status == 1) {
-                                possible += 1;
-                            }
-                        }
-                        break;
-
-                    case 6:
-                        if (playerList[i].penguin[j].y % 2 == 0) {
-                            if (playerList[i].penguin[j].y + 1 < L && grid[playerList[i].penguin[j].y + 1][playerList[i].penguin[j].x].status == 1) {
-                                possible += 1;
-                            }
-                        } else {
-                            if (playerList[i].penguin[j].y + 1 < L && playerList[i].penguin[j].x + 1 < C && grid[playerList[i].penguin[j].y + 1][playerList[i].penguin[j].x + 1].status == 1) {
-                                possible += 1;
-                            }
-                        }
-                        break;
-
-                    default:
-                        printf("Erreur sw winner");
-                        break;
-                }
-            }
-        }
-        if (possible == 0) {
-            printf("Le joueur %d ne peut plus déplacer ses pingouin \n", i + 1);
+            
+            possible += isMoveAvailable(i, j, playerList,grid);
         }
     }
-    printf("Encore %d mouvements possibles\n", possible);
+    printf("Still %d movements possible\n", possible);
     return possible;
 }
 
@@ -94,6 +26,7 @@ void move(int choice, int turn, Player playerList[], int distance, int direction
                 playerList[turn].penguin[choice].x -= 1;
                 grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].status = 0;
                 playerList[turn].score += grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].value;
+                rottenFish(choice, turn, playerList, grid);
                 grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].value = 0;
                 grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].stackOfFish = 0;
                 grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].status = -1;
@@ -113,6 +46,7 @@ void move(int choice, int turn, Player playerList[], int distance, int direction
                     playerList[turn].penguin[choice].x -= 1;
                     grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].status = 0;
                     playerList[turn].score += grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].value;
+                    rottenFish(choice, turn, playerList, grid);
                     grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].value = 0;
                     grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].stackOfFish = 0;
                     grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].status = -1;
@@ -121,6 +55,7 @@ void move(int choice, int turn, Player playerList[], int distance, int direction
                     playerList[turn].penguin[choice].y -= 1;
                     grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].status = 0;
                     playerList[turn].score += grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].value;
+                    rottenFish(choice, turn, playerList, grid);
                     grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].value = 0;
                     grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].stackOfFish = 0;
                     grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].status = -1;
@@ -140,6 +75,7 @@ void move(int choice, int turn, Player playerList[], int distance, int direction
                     playerList[turn].penguin[choice].x -= 1;
                     grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].status = 0;
                     playerList[turn].score += grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].value;
+                    rottenFish(choice, turn, playerList, grid);
                     grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].value = 0;
                     grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].stackOfFish = 0;
                     grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].status = -1;
@@ -147,6 +83,7 @@ void move(int choice, int turn, Player playerList[], int distance, int direction
                     playerList[turn].penguin[choice].y += 1;
                     grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].status = 0;
                     playerList[turn].score += grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].value;
+                    rottenFish(choice, turn, playerList, grid);
                     grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].value = 0;
                     grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].stackOfFish = 0;
                     grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].status = -1;
@@ -164,6 +101,7 @@ void move(int choice, int turn, Player playerList[], int distance, int direction
                 playerList[turn].penguin[choice].x += 1;
                 grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].status = 0;
                 playerList[turn].score += grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].value;
+                rottenFish(choice, turn, playerList, grid);
                 grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].value = 0;
                 grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].stackOfFish = 0;
                 grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].status = -1;
@@ -182,6 +120,7 @@ void move(int choice, int turn, Player playerList[], int distance, int direction
                     playerList[turn].penguin[choice].y -= 1;
                     grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].status = 0;
                     playerList[turn].score += grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].value;
+                    rottenFish(choice, turn, playerList, grid);
                 grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].value = 0;
                 grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].stackOfFish = 0;
                 grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].status = -1;
@@ -190,6 +129,7 @@ void move(int choice, int turn, Player playerList[], int distance, int direction
                     playerList[turn].penguin[choice].x += 1;
                     grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].status = 0;
                     playerList[turn].score += grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].value;
+                    rottenFish(choice, turn, playerList, grid);
                     grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].value = 0;
                     grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].stackOfFish = 0;
                     grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].status = -1;
@@ -208,6 +148,7 @@ void move(int choice, int turn, Player playerList[], int distance, int direction
                     playerList[turn].penguin[choice].y += 1;
                     grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].status = 0;
                     playerList[turn].score += grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].value;
+                    rottenFish(choice, turn, playerList, grid);
                     grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].value = 0;
                     grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].stackOfFish = 0;
                     grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].status = -1;
@@ -216,6 +157,7 @@ void move(int choice, int turn, Player playerList[], int distance, int direction
                     playerList[turn].penguin[choice].x += 1;
                     grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].status = 0;
                     playerList[turn].score += grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].value;
+                    rottenFish(choice, turn, playerList, grid);
                     grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].value = 0;
                     grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].stackOfFish = 0;
                     grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].status = -1;
@@ -226,6 +168,7 @@ void move(int choice, int turn, Player playerList[], int distance, int direction
 
         default:
             printf("Erreur switch move\n");
+            exit(1);
             break;
     }
 }
@@ -239,15 +182,15 @@ int isMovePossible(int direction, int distance, int turn, int choice, Player pla
         case 1:
             for(int i = 0; i< distance; i++) {
                 if(px -1 < 0){
-                    printf("Vous sortez du plateau !\n");
+                    printf("You go off the grid !\n");
                     return 1;
                 }
                 if(grid[px -1][py].status != 1){
-                    printf("Obstable sur la route !\n");
+                    printf("Obstacle on the way !\n");
                     return 1;
                 }
                 else{
-                    printf("mouvement valide");
+                    printf("Valid move");
                     px -= 1;
                 }
             }
@@ -258,11 +201,11 @@ int isMovePossible(int direction, int distance, int turn, int choice, Player pla
             for(int i = 0; i< distance; i++){
                 if(py%2 == 0){
                     if(px -1 < 0 || py -1 < 0){
-                        printf("Vous sortez du plateau !\n");
+                        printf("You go off the grid !\n");
                         return 1;
                     }
                     if(grid[px - 1][py - 1].status != 1){
-                        printf("Obstable sur la route !\n");
+                        printf("Obstacle on the way !\n");
                         return 1;
                     }
                     else{
@@ -272,11 +215,11 @@ int isMovePossible(int direction, int distance, int turn, int choice, Player pla
                 }
                 else{
                     if(py -1 < 0){
-                        printf("Vous sortez du plateau !\n");
+                        printf("You go off the grid !\n");
                         return 1;
                     }
                     if(grid[px][py - 1].status != 1 ){
-                        printf("Obstable sur la route !\n");
+                        printf("Obstacle on the way !\n");
                         return 1;
                     }
                     else{
@@ -291,11 +234,11 @@ int isMovePossible(int direction, int distance, int turn, int choice, Player pla
             for(int i = 0; i< distance; i++){
                 if(py%2 == 0){
                     if(px -1 < 0 || py +1 > 8){
-                        printf("Vous sortez du plateau !\n");
+                        printf("You go off the grid !\n");
                         return 1;
                     }
                     if(grid[px - 1][py + 1].status != 1){
-                        printf("Obstable sur la route !\n");
+                        printf("Obstacle on the way !\n");
                         return 1;
                     }
                     else{
@@ -305,11 +248,11 @@ int isMovePossible(int direction, int distance, int turn, int choice, Player pla
                 }
                 else{
                     if(py +1 > 8){
-                        printf("Vous sortez du plateau !\n");
+                        printf("You go off the grid !\n");
                         return 1;
                     }
                     if(grid[px][py + 1].status != 1){
-                        printf("Obstable sur la route !\n");
+                        printf("Obstacle on the way !\n");
                         return 1;
                     }
                     else{
@@ -323,16 +266,15 @@ int isMovePossible(int direction, int distance, int turn, int choice, Player pla
         case 4:
             for(int i = 0; i< distance; i++) {
                 if(px +1 > 8){
-                    printf("Vous sortez du plateau !\n");
+                    printf("You go off the grid !\n");
                     return 1;
                 }
                 if(grid[px + 1][py].status != 1){
-                    printf("Obstable sur la route !\n");
+                    printf("Obstacle on the way !\n");
                     return 1;
                 }
                 else{
-                    printf("mouvement valide");
-                    sleep(4);
+                    printf("Valid move");
                     px += 1;
                 }
             }
@@ -343,11 +285,11 @@ int isMovePossible(int direction, int distance, int turn, int choice, Player pla
             for(int i = 0; i< distance; i++){
                 if(py%2 == 0){
                     if(py -1 < 0){
-                        printf("Vous sortez du plateau !\n");
+                        printf("You go off the grid !\n");
                         return 1;
                     }
                     if(grid[px][py - 1].status != 1){
-                        printf("Obstable sur la route !\n");
+                        printf("Obstacle on the way !\n");
                         return 1;
                     }
                     else{
@@ -356,11 +298,11 @@ int isMovePossible(int direction, int distance, int turn, int choice, Player pla
                 }
                 else{
                     if(py -1 < 0 || px + 1 > 8){
-                        printf("Vous sortez du plateau !\n");
+                        printf("You go off the grid !\n");
                         return 1;
                     }
                     if(grid[px + 1][py - 1].status != 1){
-                        printf("Obstable sur la route !\n");
+                        printf("Obstacle on the way !\n");
                         return 1;
                     }
                     else{
@@ -376,11 +318,11 @@ int isMovePossible(int direction, int distance, int turn, int choice, Player pla
             for(int i = 0; i< distance; i++){
                 if(py%2 == 0){
                     if(py +1 > 8){
-                        printf("Vous sortez du plateau !\n");
+                        printf("You go off the grid !\n");
                         return 1;
                     }
                     if(grid[px][py + 1].status != 1){
-                        printf("Obstable sur la route !\n");
+                        printf("Obstacle on the way !\n");
                         return 1;
                     }
                     else{
@@ -389,11 +331,11 @@ int isMovePossible(int direction, int distance, int turn, int choice, Player pla
                 }
                 else{
                     if(py +1 > 8 || px + 1 > 8){
-                        printf("Vous sortez du plateau !\n");
+                        printf("You go off the grid !\n");
                         return 1;
                     }
                     if(grid[px + 1][py + 1].status != 1 ){
-                        printf("Obstable sur la route !\n");
+                        printf("Obstacle on the way !\n");
                         return 1;
                     }
                     else{
@@ -407,7 +349,7 @@ int isMovePossible(int direction, int distance, int turn, int choice, Player pla
 
         default:
             return 1;
-            printf("Erreur sw moveverification");
+            printf("Error switch case isMovePossible\n");
         break;
     }
 }
@@ -419,14 +361,14 @@ void choiceMove(int choice, Player playerList[], int turn, Hexagon grid[L][C]) {
 
     do {
         printf("Choose direction : \n");
-        printf("1 : Haut\n2 : Haut-Gauche\n3 : Haut-Droite\n4 : Bas\n5 : Bas-Gauche\n6 : Bas-Droite \n"); 
+        printf("1 : Top\n2 : Top-Left\n3 : Top-Right\n4 : Bottom\n5 : Bottom-Left\n6 : Bottom-Right\n"); 
         if (scanf("%d", &direction) != 1) {  // Check input, ensure it's a number
             printf("Invalid input. ");  
             while (getchar() != '\n');  // Clear input buffer to discard incorrect inputs
             continue;  // Continue the loop
         }
         if (direction < 1 || direction > 6) { 
-            printf("Invalid input. Choose valid option. ");
+            printf("Invalid input. Choose valid option.");
         } 
     } while (direction < 1 || direction > 6); 
     
@@ -446,7 +388,7 @@ void choiceMove(int choice, Player playerList[], int turn, Hexagon grid[L][C]) {
         move(choice, turn, playerList, distance, direction, grid);
     }
     else {
-        printf("Mouvement pas valide\n");
+        printf("Invalid movement\n");
         choiceMove(choice, playerList, turn, grid);
     }
 }
@@ -459,111 +401,94 @@ int isMoveAvailable(int turn, int choice, Player playerList[], Hexagon grid[L][C
     for(int i = 1; i < 7; i++) {
 
         switch (i) {
-            case 1:
-                if(py -1 < 0) {
+            case 1: // check if upper move is available
+                if(px -1 >= 0) {
+                    if(grid[px - 1][py].status == 1) {
+                        possible += 1;
+                    }
                 }
-                else if(grid[px][py - 1].status != 1) {
-                }
-                else {
-                    possible += 1;
-                }
+
             break;
 
-            case 2:
-                if(px % 2 == 0){
-                    if(py -1 < 0 || px -1 < 0) {
-                    }
-                    else if(grid[px - 1][py - 1].status != 1) {
-                    }
-                    else {
-                        possible += 1;
+            case 2: // check if upper-left move is available
+                if(py % 2 == 0){
+                    if(py -1 >= 0 && px -1 >= 0) {
+                        if(grid[px - 1][py - 1].status == 1) {
+                            possible += 1;
+                        }
                     }
                 }
                 else{
-                    if(px -1 < 0) {
-                    }
-                    else if(grid[px - 1][py].status != 1) {
-                    }
-                    else {
-                        possible += 1;
+                    if(py -1 >= 0) {
+                        if(grid[px][py - 1].status == 1) {
+                            possible += 1;
+                        }
                     }
                 }
             break; 
 
-            case 3:
-                if(px % 2 == 0) {
-                    if(py -1 < 0 || px +1 > 8) {
-                    }
-                    if(grid[px + 1][py - 1].status != 1) {
-                    }
-                    else {
-                        possible += 1;
+            case 3: // check if upper-right move is available
+                if(py % 2 == 0) {
+                    if (py +1 <= 8 && px -1 >= 0){
+                        if(grid[px - 1][py + 1].status == 1) {
+                            possible += 1;
+                        }
                     }
                 }
-                else{ // a changer les valeurs calculs
-                    if(px +1 > 9) {
-                    }
-                    if(grid[px + 1][py - 1].status != 1) {
-                    }
-                    else {
-                        possible += 1;
-                    }
+                else{
+                    if(py +1 <= 8) {
+                        if(grid[px][py + 1].status == 1) {
+                            possible += 1;
+                        }
+                    }    
                 }
             break;
             
-            case 4:
-                if(py +1 > 9) {
-                }
-                else if(grid[px][py + 1].status != 1) {
-                }
-                else {
-                    possible += 1;
-                }
-            break;
-
-            case 5:
-                if(px % 2 == 0) { // a modif les valeurs calcul
-                    if(px -1 < 0){
-                    }
-                    else if(grid[px - 1][py].status != 1){
-                    }
-                    else{
-                        possible += 1;
-                    }
-                }
-                else{
-                    if(py + 1 > 8 || px -1 < 0){
-                    }
-                    else if(grid[px - 1][py + 1].status != 1){
-                    }
-                    else{
+            case 4: // check if down move is available
+                if(px +1 <= 8) {
+                    if(grid[px + 1][py].status == 1) {
                         possible += 1;
                     }
                 }
             break;
 
-            case 6:
-                if(px % 2 == 0) { // a modif les valeurs calcul
-                    if(py +1 > 8){
-                    }
-                    else if(grid[px + 1][py].status != 1){
-                    }
-                    else{
-                        possible += 1;
+            case 5: // check if down-left move is available
+                if(py % 2 == 0) {
+                    if(py -1 >= 0){
+                        if(grid[px][py - 1].status == 1){
+                            possible += 1;
+                        }
                     }
                 }
                 else{
-                    if(py +1 > 8 || px +1 > 8){
-                    }
-                    else if(grid[px + 1][py + 1].status != 1){
-                    }
-                    else{
+                    if(py - 1 >= 0 && px  +1 <= 8){
+                        if(grid[px + 1][py - 1].status == 1){
                         possible += 1;
+                        }
+                    }
+                }
+            break;
+
+            case 6: // check if down-right move is available
+                if(py % 2 == 0) {
+                    if(py +1 <= 8){
+                        if(grid[px][py + 1].status == 1){
+                            possible += 1;
+                        }
+                    }
+                }
+                else{
+                    if(py +1 <= 8 && px +1 <= 8){
+                    
+                        if(grid[px + 1][py + 1].status == 1){
+                            possible += 1;
+                        }
                     }
                 }
             break;
             default:
-                printf("Erreur sw isMovepossible");
+                printf("Error isMoveAvailable");
+                exit(1);
             break;
         }
     }
@@ -572,21 +497,63 @@ int isMoveAvailable(int turn, int choice, Player playerList[], Hexagon grid[L][C
 
 void gameTurn(int nbrPlayers, Player playerList[], Hexagon grid[L][C]) { // Play turns
 
+    int mvP = 0;
     int choiceP = 0;
     int turn = 0;
 
     for(int i = 0; i < nbrPlayers; i++) {
-        printf("C'est au tour du joueur : %d\n", i+1);
-        do{
-            printf("choisisser un pingouin capable de bouger : \n");
-            if(scanf("%d", &choiceP) != 1) {
-                printf("Mauvaise saisie. ");
-                while (getchar() != '\n');
-                continue;
+        printf("Trun of player : %d\n", i+1);
+        for(int j = 0; j < playerList[i].nbrPenguin; j++){
+            mvP += isMoveAvailable(turn, j, playerList, grid);
+        }
+
+        if(mvP == 0){
+            printf("Player %d has no possible movement \n",turn + 1);
+            goto nextTurn;
+        }
+        mvP = 0;
+        do { 
+            printf("Choose a penguin that can move: \n");
+            if (scanf("%d", &choiceP) != 1) {  // Check input, ensure it's a number
+                printf("Invalid input. ");  
+                while (getchar() != '\n');  // Clear input buffer to discard incorrect inputs
+                continue;  // Continue the loop
             }
-        }while(choiceP - 1 < 0 || choiceP - 1 > playerList[i].nbrPenguin || isMoveAvailable(turn, choiceP - 1, playerList, grid) == 0);
+            if (choiceP - 1 < 0 || choiceP - 1 > playerList[i].nbrPenguin || isMoveAvailable(turn, choiceP - 1, playerList, grid) == 0) { 
+                printf("Invalid input. Choose valid option ");
+            } 
+        } while (choiceP - 1 < 0 || choiceP - 1 > playerList[i].nbrPenguin || isMoveAvailable(turn, choiceP - 1, playerList, grid) == 0);
         choiceMove(choiceP - 1, playerList, turn, grid);
-        turn += 1;
         displayAll(grid, nbrPlayers, playerList);
+        nextTurn: printf("Next turn\n");
+        turn += 1;
     }
+}
+
+
+void rottenFish(int choice, int turn, Player playerList[], Hexagon grid[L][C]) {
+
+    switch (grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].stackOfFish) {
+
+        case 1:
+        break;
+
+        case 2:
+            if(grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].value < 2) {
+                printf("\033[91mThe penguin ate a rotten fish");
+            }
+        break;
+
+        case 3 :
+            if(grid[playerList[turn].penguin[choice].x][playerList[turn].penguin[choice].y].value < 3) {
+                printf("\033[91mThe penguin ate a rotten fish");
+            }
+        break;
+
+        default:
+            printf("Error switch case rottenFish()");
+            exit(1);
+        break;
+    }
+    printf("\033[97m");
 }

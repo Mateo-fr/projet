@@ -1,7 +1,6 @@
 #include "play.h"
 
 int main() {
-    srand(time(NULL)); // Seed initialization for random number generation using the current time
 
     int choice = 0; // Variable to store user's choice
 
@@ -49,7 +48,7 @@ int main() {
                 break;
             default:
                 printf("Error with the choice"); // Print an error message if there is an unexpected issue with the choice
-                exit(5); // Exit the program with an error code 5
+                exit(5); 
                 break;
         }
     }

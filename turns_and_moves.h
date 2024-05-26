@@ -6,3 +6,4 @@ int isMovePossible(int direction, int distance, int turn, int choice, Player pla
 void choiceMove(int choice, Player playerList[], int turn, Hexagon grid[L][C]);
 int isMoveAvailable(int turn, int choice, Player playerList[], Hexagon grid[L][C]);
 void gameTurn(int nbrPlayers, Player playerList[], Hexagon grid[L][C]);
+void rottenFish(int choice, int turn, Player playerList[], Hexagon grid[L][C]);

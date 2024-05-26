@@ -41,37 +41,26 @@ void givePenguin(Player playerList[], int nbrPlayer) {
         switch(nbrPlayer) {  // Switch case based on the number of players
             case 2:
                 playerList[i].nbrPenguin = 4;  // Assign 4 penguins to each player if there are 2 players
-                for(int j; j < 4; j++){
-                    playerList[i].penguin[j].numP = j;
-                }
+
             break;
 
             case 3:
-                playerList[i].nbrPenguin = 3;  // Assign 3 penguins to each player if there are 3 players
-                for(int j; j < 3; j++){
-                    playerList[i].penguin[j].numP = j;
-                }
+                playerList[i].nbrPenguin = 3;  // Assign 3 penguins to each player if there are 3 players;
+                
             break;
 
             case 4:
+
                 playerList[i].nbrPenguin = 2;  // Assign 2 penguins to each player if there are 4 players
-                for(int j; j < 2; j++){
-                    playerList[i].penguin[j].numP = j;
-                }
+
             break;
 
             case 5:
                 playerList[i].nbrPenguin = 2;  // Assign 2 penguins to each player if there are 5 players
-                for(int j; j < 2; j++){
-                    playerList[i].penguin[j].numP = j;
-                }
             break;
 
             case 6:
                 playerList[i].nbrPenguin = 2;  // Assign 2 penguins to each player if there are 6 players
-                for(int j; j < 2; j++){
-                    playerList[i].penguin[j].numP = j;
-                }
             break;
 
             default:
@@ -80,7 +69,7 @@ void givePenguin(Player playerList[], int nbrPlayer) {
         }
         playerList[i].penguin = (Penguin*)malloc(playerList[i].nbrPenguin * sizeof(Penguin));
         if (playerList[i].penguin == NULL) {
-            printf("Erreur d'allocation mémoire");
+            printf("Error while trying allocate memory");
             exit(1);
         }
     }
@@ -98,6 +87,7 @@ void setZero(Player playerList[], int nbrPlayers) {
 // Function to assign points to each hexagon on the grid
 void setValue(Hexagon grid[L][C]) {
     int tab[2] = {-1, 1}; // Array to store possible point values
+    int tab3[4] = {1, 1, 1, 3};
 
     for (int i = 0; i < C; i++) { // Loop through columns of the grid
         for(int j = 0; j < L; j++) { // Loop through rows of the grid
@@ -105,15 +95,15 @@ void setValue(Hexagon grid[L][C]) {
 
             switch(grid[i][j].stackOfFish) { // Switch case based on the number of fish
                 case 1: // If there is 1 fish
-                    grid[i][j].value = tab[rand() % 2]; // Assign a random point value (-1 or 1)
+                    grid[i][j].value = 1; // Assign a random point value (-1 or 1)
                 break;
 
                 case 2: // If there are 2 fish
-                    grid[i][j].value = tab[rand() % 2] + tab[rand() % 2]; // Assign a random point value (-1, 0, or 1) by summing two random values from the array
+                    grid[i][j].value = tab[rand() % 2] + 1; // Assign a random point value (-1 or 1) by summing two random values from the array
                 break;
 
                 case 3: // If there are 3 fish
-                    grid[i][j].value = tab[rand() % 2] + tab[rand() % 2] + tab[rand() % 2]; // Assign a random point value (-1, 0, or 1) by summing three random values from the array
+                        grid[i][j].value = tab3[rand() % 4];// Assign a random point value (-1 or 1) by summing three random values from the array
                 break;
 
                 default:
@@ -181,3 +171,4 @@ void placePenguin(Hexagon grid[L][C], int nbrPlayer, Player playerList[]) {
         }
     }
 }
+

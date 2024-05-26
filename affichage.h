@@ -15,3 +15,6 @@ void displayAll(Hexagon grid[L][C], int nbrPlayers, Player playerList[]);
 void displayRules();
 void displaySpecifications();
 void displayRequirements();
+void endScreenWin(Player playerList[], int nbrplayers);
+void endScreen(Player playerList[], int nbrplayers);
+void end(Player playerList[], int nbrPlayer);

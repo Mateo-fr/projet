@@ -12,7 +12,7 @@ void clearTerminal() {
 }
 
 void waitForKeyPress() {
-    printf("\nPress ENTER key to return to the home screen...");
+    printf("\nPress ENTER to continue...");
     getchar(); // Capture the newline left in the buffer
     getchar(); // Wait for the user to press a key
 }
@@ -147,7 +147,7 @@ void displayGrid(int l, int c, int nbrPlayers, Player playerList[]) {
     // Display player information
     for(int u = 0; u < nbrPlayers; u++) {
         // Print player number and name
-        printf("Joueur : %d | Nom : %s ", u + 1, playerList[u].name);
+        printf("Player : %d | Name : %s ", u + 1, playerList[u].name);
         // Get the length of the player's name
         car = strlen(playerList[u].name);
         // Print spaces to align the output
@@ -158,7 +158,7 @@ void displayGrid(int l, int c, int nbrPlayers, Player playerList[]) {
         printf("| Score : %d |", playerList[u].score);
         // Print each penguin's coordinates for the current player
         for (int g = 0; g < playerList[u].nbrPenguin; g++) {
-            printf(" Pingouins : %d : (%d, %d) |", g + 1, playerList[u].penguin[g].x + 1, playerList[u].penguin[g].y + 1);
+            printf(" Penguins : %d : (%d, %d) |", g + 1, playerList[u].penguin[g].x + 1, playerList[u].penguin[g].y + 1);
         }
         printf("\n");
     }
@@ -328,7 +328,6 @@ void displayItem(Hexagon grid[L][C], Player playerList[], int nbrPlayer) {
     } 
 }
 
-
 void displayAll(Hexagon grid[L][C], int nbrPlayers, Player playerList[]) {
     // Clear the terminal screen to start with a fresh display
     clearTerminal();
@@ -379,7 +378,7 @@ void displaySpecifications() {
 
 void displayRequirements() {
     char ch;
-    FILE *file = fopen("requirements.txt", "r"); // Open the file in read mode
+    FILE *file = fopen("readme.txt", "r"); // Open the file in read mode
     if (file == NULL) {
         perror("Unable to open rules.txt"); // Print error message if the file cannot be opened
         exit(404); // Exit the program with an error code
@@ -391,3 +390,118 @@ void displayRequirements() {
 
     fclose(file); // Close the file
 }
+
+void endScreenWin(Player playerList[], int nbrPlayer) {
+    int car;
+    int winner = 0;
+    clearTerminal();
+    printf("\033[96m");
+    printf("                                                                                                                    . --- .                \n");
+    printf("       o                 o                                                                                         /        \\             \n");
+    printf("                  o                                                                                               |  O  _  O |             \n");
+    printf("         o   ______      o                              ____  ____   _                                            |  ./   \\. |            \n");
+    printf("           _/  (   \\_                                  / ___|/ ___| | |                                           /  `-._.-' \\           \n");
+    printf(" _       _/  (       \\_  O                            | |  _| |  _  | |                                       .' /           \\ `.        \n");
+    printf("| \\_   _/  (   (    0  \\                              | |_| | |_| | |_|                                   .-~.-~/             \\~-.~-.   \n");
+    printf("|== \\_/  (   (          |                              \\____|\\____| (_)                                .-~ ~    |             |    ~ ~-.\n");
+    printf("|=== _ (   (   (        |                                                                              `- .     |             |     . -'   \n");
+    printf("|==_/ \\_ (   (          |                                                                                   ~ - |             | - ~       \n");
+    printf("|_/     \\_ (   (    \\__/                         ------------------------                                       |             |          \n");
+    printf("          \\_ (      _/                          ||                      ||                                      \\             /          \n");
+    printf("            |  |___/                             ------------------------                                     ___\\           /___         \n");
+    printf("           /__/                                                                                               ~;_  >- . . -<  _i~          \n");
+    printf("                                ______________________________________________________________                   `'         `'             \n");
+    printf("                                                      Was it fun ? x)                                                                      \n");
+    printf("                                                                                                                                           \n");
+    printf("                                    [1] : Play again !                [2] : Quit ...                                                       \n");
+    printf("                                                                                                                                           \n");
+    printf("                                                                                                                                           \n");
+    printf("                                                        Scoreboard                                                                         \n");
+    printf("                                                        ----------                                                                         \n");
+    printf("                                             Players :              Score :                                                                \n");
+    printf("                                                                                                                                           \n");
+    winner = defWinner(playerList, nbrPlayer);
+    for(int u = 0; u < nbrPlayer; u++) {
+        printf("                                          ");
+        printf("%d | %s ", u + 1, playerList[u].name);
+        // Get the length of the player's name
+        car = strlen(playerList[u].name);
+        // Print spaces to align the output
+        for(int t = 0; t < (SIZE - 1) - car; t++) {
+            printf(" ");
+        }
+        // Print player's score
+        printf("%d", playerList[u].score);
+        // Print each penguin's coordinates for the current player
+        printf("\n");
+    }
+
+    printf("\033[91m");
+    printf("\033[%d;%dH", 12, 52);
+    printf("%s", playerList[winner].name);
+
+    moveCursor(7, 0, 4);
+    printf("\033[97m\n");
+}
+
+void endScreen(Player playerList[], int nbrPlayer) {
+    int car;
+    int winner = 0;
+    clearTerminal();
+    printf("\033[96m");
+    printf("                                                                                                                    . --- .              \n");
+    printf("       o                 o                                                                                         /        \\           \n");
+    printf("                  o                                                                                               |  O  _  O |           \n");
+    printf("         o   ______      o                         ██████╗  ██████╗     ██╗                                       |  ./   \\. |          \n");
+    printf("           _/  (   \\_                            ██╔════╝ ██╔════╝     ██║                                        /  `-._.-'  \\        \n");
+    printf(" _       _/  (       \\_  O                       ██║  ███╗██║  ███╗    ██║                                     .' /         \\ `.       \n");
+    printf("| \\_   _/  (   (    0  \\                        ██║   ██║██║   ██║    ╚═╝                                  .-~.-~/           \\~-.~-.  \n");
+    printf("|== \\_/  (   (          |                        ╚██████╔╝╚██████╔╝    ██╗                             .-~ ~    |             |    ~ ~-.\n");
+    printf("|=== _ (   (   (        |                          ╚═════╝  ╚═════╝     ╚═╝                            `- .     |             |     . -' \n");
+    printf("|==_/ \\_ (   (          |                                                                                   ~ - |             | - ~     \n");
+    printf("|_/     \\_ (   (    \\__/                        ╔══════════════════════╗                                        |             |        \n");
+    printf("          \\_ (      _/                          ║║                      ║║                                      \\             /        \n");
+    printf("            |  |___/                              ╚══════════════════════╝                                    ___\\           /___       \n");
+    printf("           /__/                                                                                               ~;_  >- . . -<  _i~        \n");
+    printf("                                ______________________________________________________________                   `'         `'           \n");
+    printf("                                                      Was it fun ? x)                                                                    \n");
+    printf("                                                                                                                                         \n");
+    printf("                                    [1] : Play again !                [2] : Quit ...                                                     \n");
+    printf("                                                                                                                                         \n");
+    printf("                                                                                                                                         \n");
+    printf("                                                        Scoreboard                                                                       \n");
+    printf("                                                        ‾‾‾‾‾‾‾‾‾‾                                                                       \n");
+    printf("                                             Players :              Score :                                                              \n");
+    printf("                                                                                                                                         \n"); 
+    winner = defWinner(playerList, nbrPlayer);    
+    for(int u = 0; u < nbrPlayer; u++) {
+        printf("                                          ");
+        printf("%d | %s ", u + 1, playerList[u].name);
+        // Get the length of the player's name
+        car = strlen(playerList[u].name);
+        // Print spaces to align the output
+        for(int t = 0; t < (SIZE - 1) - car; t++) {
+            printf(" ");
+        }
+        // Print player's score
+        printf("%d", playerList[u].score);
+        // Print each penguin's coordinates for the current player
+        printf("\n");
+    }
+
+    printf("\033[91m");
+    printf("\033[%d;%dH", 12, 55);
+    printf("%s", playerList[winner].name);
+
+    moveCursor(7, 0, 4);
+    printf("\033[97m\n");
+}
+
+void end(Player playerList[], int nbrPlayer) {
+    #ifdef _WIN32
+    endScreenWin(playerList, nbrPlayer);
+    #else
+    endScreen(playerList, nbrPlayer);
+    #endif
+}
+

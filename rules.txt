@@ -1,29 +1,29 @@
-RÈGLES DU JEU
+RULES OF THE GAME :
 
-1. Objectif du Jeu
-   - Les pingouins sur un iceberg s’affrontent pour attraper le plus de poissons.
+1. Objective of the Game
+    - Penguins on an iceberg compete to catch the most fish.
 
-2. Déroulement du Jeu
-   - Le jeu se déroule sur une grille de cases hexagonale.
-   - Chaque case contenient entre 1 et 3 poisson et peut contenir un pingouin.
-   - Les joueurs déplacent leurs pingouins pour collecter des poissons.
+2. Course of the Game
+    - The game takes place on a hexagonal grid of squares.
+    - Each box contains between 1 and 3 fish and can contain a penguin.
+    - Players move their penguins to collect fish.
 
-3. Déplacement des Pingouins
-   - Un pingouin se déplace en ligne droite d’autant de cases que souhaité.
-   - Il ne peut pas traverser une case occupée par un autre pingouin ou une case casée.
-   - Une case ne peut être occupée que par un seul pingouin à la fois.
-   - Après chaque déplacement, la case de départ est cassée à cause du réchauffement climatique.
+3. Moving the Penguins
+    - A penguin moves in a straight line as many squares as desired.
+    - He cannot cross a square occupied by another penguin or a square.
+    - A space can only be occupied by one penguin at a time.
+    - After each move, the starting square is broken due to global warming.
 
-4. Fin de Partie
-   - La partie se termine lorsque tous les joueurs sont bloqués.
-   - Le joueur avec le plus de poissons gagne.
+4. End of Game
+    - The game ends when all players are blocked.
+    - The player with the most fish wins.
 
-5. Règles Spécifiques
-   - Nombre de joueurs : 2 à 6.
-   - Nombre de pingouins : 4 (2 joueurs), 3 (3 joueurs), 2 (4 joueurs).
-   - Les cases hexagonales affichent le nombre de poissons, un pingouin et une croix signifiant que la case est inutilisable.
+5. Specific Rules
+    - Number of players: 2 to 6.
+    - Number of penguins: 4 (2 players), 3 (3 players), 2 (4 players).
+    - The hexagonal boxes display the number of fish, a penguin and a cross meaning that the box is unusable.
 
-6. Variantes
-   - Grilles Hexagonales : HEXA_A.
-   - Positions de départ : START_AUTO (programme).
-   - Comptage des poissons : FISH_ROTTEN.
+6. Variants
+    - Hexagonal Grids: HEXA_A.
+    - Starting positions: START_AUTO (program).
+    - Fish counting: FISH_ROTTEN.
