@@ -1,0 +1,29 @@
+RÈGLES DU JEU
+
+1. Objectif du Jeu
+   - Les pingouins sur un iceberg s’affrontent pour attraper le plus de poissons.
+
+2. Déroulement du Jeu
+   - Le jeu se déroule sur une grille de cases hexagonale.
+   - Chaque case contenient entre 1 et 3 poisson et peut contenir un pingouin.
+   - Les joueurs déplacent leurs pingouins pour collecter des poissons.
+
+3. Déplacement des Pingouins
+   - Un pingouin se déplace en ligne droite d’autant de cases que souhaité.
+   - Il ne peut pas traverser une case occupée par un autre pingouin ou une case casée.
+   - Une case ne peut être occupée que par un seul pingouin à la fois.
+   - Après chaque déplacement, la case de départ est cassée à cause du réchauffement climatique.
+
+4. Fin de Partie
+   - La partie se termine lorsque tous les joueurs sont bloqués.
+   - Le joueur avec le plus de poissons gagne.
+
+5. Règles Spécifiques
+   - Nombre de joueurs : 2 à 6.
+   - Nombre de pingouins : 4 (2 joueurs), 3 (3 joueurs), 2 (4 joueurs).
+   - Les cases hexagonales affichent le nombre de poissons, un pingouin et une croix signifiant que la case est inutilisable.
+
+6. Variantes
+   - Grilles Hexagonales : HEXA_A.
+   - Positions de départ : START_AUTO (programme).
+   - Comptage des poissons : FISH_ROTTEN.

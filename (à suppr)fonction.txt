@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+
+#define SIZE 50
+#define L  9
+#define C  9
+
+typedef struct {
+    int x;
+    int y;
+    int NumP;
+}Penguin;
+
+typedef struct {
+    char name[SIZE];
+    int color;
+    int score;
+    int nbrPenguin;
+    Penguin Penguin[4];
+}Player;
+
+typedef struct{
+    int StackOfFish; //nombre de poissons sur une case
+    int PinguinOwner; //Numéro du joueur à qui appartient le pinguin
+    int status; //Le statut de la case (1 : case libre | 0 : casse occupée | -1 : casse cassée)
+    int value; //valeur de la case (somme des poissons)
+}hexagon;
+
+
+
+int NbrPlayers();
+void PlayersName(Player playerList[], int nbrPlayer);
+void DisplayPlayersName(Player playerList[], int NbrPlayer);
+void Pointgrid(hexagon grid[L][C]);

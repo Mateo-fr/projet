@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "fonction.h": "c",
+        "stdio.h": "c",
+        "turns_and_moves.h": "c"
+    }
+}
