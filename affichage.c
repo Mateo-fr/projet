@@ -1,7 +1,25 @@
 #include "affichage.h"
 
+// Function to clear the terminal screen
+void clearTerminal() {
+    // If compiling for Windows
+    #ifdef _WIN32
+    system("cls"); // Clear the terminal using cls command
+    // If compiling for non-Windows systems
+    #else
+    system("clear"); // Clear the terminal using clear command
+    #endif
+}
+
+void waitForKeyPress() {
+    printf("\nPress ENTER key to return to the home screen...");
+    getchar(); // Capture the newline left in the buffer
+    getchar(); // Wait for the user to press a key
+}
+
 // Function to display the home screen
 void homeScreen() {
+    clearTerminal();
     printf("\033[96m");
     printf("                                                                                                                    . --- .              \n");
     printf("       o                 o                                                                                         /        \\           \n");
@@ -26,6 +44,7 @@ void homeScreen() {
 }
 
 void homeScreenWin() {
+    clearTerminal();
     printf("\033[96m");
     printf("                                                                                                                    . --- .              \n");
     printf("       o                 o                                                                                         /        \\           \n");
@@ -309,16 +328,6 @@ void displayItem(Hexagon grid[L][C], Player playerList[], int nbrPlayer) {
     } 
 }
 
-// Function to clear the terminal screen
-void clearTerminal() {
-    // If compiling for Windows
-    #ifdef _WIN32
-    system("cls"); // Clear the terminal using cls command
-    // If compiling for non-Windows systems
-    #else
-    system("clear"); // Clear the terminal using clear command
-    #endif
-}
 
 void displayAll(Hexagon grid[L][C], int nbrPlayers, Player playerList[]) {
     // Clear the terminal screen to start with a fresh display
@@ -339,13 +348,43 @@ void displayAll(Hexagon grid[L][C], int nbrPlayers, Player playerList[]) {
 }
 
 void displayRules() {
+    char ch;
     FILE *file = fopen("rules.txt", "r"); // Open the file in read mode
     if (file == NULL) {
         perror("Unable to open rules.txt"); // Print error message if the file cannot be opened
         exit(404); // Exit the program with an error code
     }
 
+    while ((ch = fgetc(file)) != EOF) {
+        putchar(ch); // Print each character from the file to the console
+    }
+
+    fclose(file); // Close the file
+}
+
+void displaySpecifications() {
     char ch;
+    FILE *file = fopen("specifications.txt", "r"); // Open the file in read mode
+    if (file == NULL) {
+        perror("Unable to open rules.txt"); // Print error message if the file cannot be opened
+        exit(404); // Exit the program with an error code
+    }
+
+    while ((ch = fgetc(file)) != EOF) {
+        putchar(ch); // Print each character from the file to the console
+    }
+
+    fclose(file); // Close the file
+}
+
+void displayRequirements() {
+    char ch;
+    FILE *file = fopen("requirements.txt", "r"); // Open the file in read mode
+    if (file == NULL) {
+        perror("Unable to open rules.txt"); // Print error message if the file cannot be opened
+        exit(404); // Exit the program with an error code
+    }
+
     while ((ch = fgetc(file)) != EOF) {
         putchar(ch); // Print each character from the file to the console
     }

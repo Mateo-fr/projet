@@ -242,11 +242,12 @@ int isMovePossible(int direction, int distance, int turn, int choice, Player pla
                     printf("Vous sortez du plateau !\n");
                     return 1;
                 }
-                if(grid[py][px -1].status == -1 || grid[py][px -1].status == 0){
+                if(grid[px -1][py].status != 1){
                     printf("Obstable sur la route !\n");
                     return 1;
                 }
                 else{
+                    printf("mouvement valide");
                     px -= 1;
                 }
             }
@@ -260,7 +261,7 @@ int isMovePossible(int direction, int distance, int turn, int choice, Player pla
                         printf("Vous sortez du plateau !\n");
                         return 1;
                     }
-                    if(grid[py - 1][px - 1].status == -1 || grid[py - 1][px - 1].status == 0){
+                    if(grid[px - 1][py - 1].status != 1){
                         printf("Obstable sur la route !\n");
                         return 1;
                     }
@@ -274,7 +275,7 @@ int isMovePossible(int direction, int distance, int turn, int choice, Player pla
                         printf("Vous sortez du plateau !\n");
                         return 1;
                     }
-                    if(grid[py - 1][px].status == -1 || grid[py - 1][px].status == 0 ){
+                    if(grid[px][py - 1].status != 1 ){
                         printf("Obstable sur la route !\n");
                         return 1;
                     }
@@ -293,7 +294,7 @@ int isMovePossible(int direction, int distance, int turn, int choice, Player pla
                         printf("Vous sortez du plateau !\n");
                         return 1;
                     }
-                    if(grid[py + 1][px - 1].status == -1 || grid[py + 1][px - 1].status == 0){
+                    if(grid[px - 1][py + 1].status != 1){
                         printf("Obstable sur la route !\n");
                         return 1;
                     }
@@ -307,7 +308,7 @@ int isMovePossible(int direction, int distance, int turn, int choice, Player pla
                         printf("Vous sortez du plateau !\n");
                         return 1;
                     }
-                    if(grid[py + 1][px].status == -1 || grid[py + 1][px].status == 0){
+                    if(grid[px][py + 1].status != 1){
                         printf("Obstable sur la route !\n");
                         return 1;
                     }
@@ -325,11 +326,13 @@ int isMovePossible(int direction, int distance, int turn, int choice, Player pla
                     printf("Vous sortez du plateau !\n");
                     return 1;
                 }
-                if(grid[py][px + 1].status == -1 || grid[py][px + 1].status == 0){
+                if(grid[px + 1][py].status != 1){
                     printf("Obstable sur la route !\n");
                     return 1;
                 }
                 else{
+                    printf("mouvement valide");
+                    sleep(4);
                     px += 1;
                 }
             }
@@ -343,7 +346,7 @@ int isMovePossible(int direction, int distance, int turn, int choice, Player pla
                         printf("Vous sortez du plateau !\n");
                         return 1;
                     }
-                    if(grid[py - 1][px].status == -1 || grid[py - 1][px].status == 0){
+                    if(grid[px][py - 1].status != 1){
                         printf("Obstable sur la route !\n");
                         return 1;
                     }
@@ -356,7 +359,7 @@ int isMovePossible(int direction, int distance, int turn, int choice, Player pla
                         printf("Vous sortez du plateau !\n");
                         return 1;
                     }
-                    if(grid[py - 1][px + 1].status == -1 || grid[py - 1][px + 1].status == 0){
+                    if(grid[px + 1][py - 1].status != 1){
                         printf("Obstable sur la route !\n");
                         return 1;
                     }
@@ -376,7 +379,7 @@ int isMovePossible(int direction, int distance, int turn, int choice, Player pla
                         printf("Vous sortez du plateau !\n");
                         return 1;
                     }
-                    if(grid[py + 1][px].status == - 1 || grid[py + 1][px].status == 0){
+                    if(grid[px][py + 1].status != 1){
                         printf("Obstable sur la route !\n");
                         return 1;
                     }
@@ -389,7 +392,7 @@ int isMovePossible(int direction, int distance, int turn, int choice, Player pla
                         printf("Vous sortez du plateau !\n");
                         return 1;
                     }
-                    if(grid[py + 1][px + 1].status == -1 || grid[py + 1][px + 1].status == 0 ){
+                    if(grid[px + 1][py + 1].status != 1 ){
                         printf("Obstable sur la route !\n");
                         return 1;
                     }
@@ -450,8 +453,8 @@ void choiceMove(int choice, Player playerList[], int turn, Hexagon grid[L][C]) {
 
 int isMoveAvailable(int turn, int choice, Player playerList[], Hexagon grid[L][C]) { // check if move is available for one penguin
     int possible = 0;
-    int px = playerList[turn].penguin[choice].y;
-    int py = playerList[turn].penguin[choice].x;
+    int py = playerList[turn].penguin[choice].y;
+    int px = playerList[turn].penguin[choice].x;
 
     for(int i = 1; i < 7; i++) {
 
