@@ -4,7 +4,6 @@ int isAnyMoveAvailable(int nbrPlayers, Player playerList[], Hexagon grid[L][C]) 
     // Check if at least one move is available
     int possible = 0;
     for (int i = 0; i < nbrPlayers; i++) {
-        printf("%d",playerList[i].nbrPenguin);
         for (int j = 0; j < playerList[i].nbrPenguin; j++) {
             
             possible += isMoveAvailable(i, j, playerList,grid);
@@ -190,7 +189,6 @@ int isMovePossible(int direction, int distance, int turn, int choice, Player pla
                     return 1;
                 }
                 else{
-                    printf("Valid move");
                     px -= 1;
                 }
             }
@@ -274,7 +272,6 @@ int isMovePossible(int direction, int distance, int turn, int choice, Player pla
                     return 1;
                 }
                 else{
-                    printf("Valid move");
                     px += 1;
                 }
             }
@@ -502,7 +499,7 @@ void gameTurn(int nbrPlayers, Player playerList[], Hexagon grid[L][C]) { // Play
     int turn = 0;
 
     for(int i = 0; i < nbrPlayers; i++) {
-        printf("Trun of player : %d\n", i+1);
+        printf("Turn of player : %d\n", i+1);
         for(int j = 0; j < playerList[i].nbrPenguin; j++){
             mvP += isMoveAvailable(turn, j, playerList, grid);
         }

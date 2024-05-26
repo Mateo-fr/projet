@@ -33,3 +33,4 @@ void setZero(Player playerList[], int nbrplayers);
 void setValue(Hexagon grid[L][C]);
 int enoughSpace(Hexagon grid[L][C], int nbrJoueur);
 void placePenguin(Hexagon grid[L][C], int nbrPlayer, Player playerList[]);
+int defWinner(Player playerList[], int nbrPlayer);

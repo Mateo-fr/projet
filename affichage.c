@@ -310,6 +310,13 @@ void displayItem(Hexagon grid[L][C], Player playerList[], int nbrPlayer) {
                 // If compiling for non-Windows systems
                 #else
                 printf("🐧"); // Print a penguin emoji
+                for(int k = 0; k < nbrPlayer; k++){
+                    for(int l = 0; l < playerList[k].nbrPenguin; l++){
+                        if(playerList[k].penguin[l].x == j && playerList[k].penguin[l].y == i){
+                            printf("%d.%d)",k+1,l+1);
+                        }
+                    }
+                }
                 #endif
             }
             // If the hexagon is marked as unplayable (status is -1)

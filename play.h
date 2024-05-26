@@ -2,4 +2,3 @@
 
 void play();
 void endMenu(Player playerList[], int nbrPlayer);
-int defWinner(Player playerList[], int nbrPlayer);

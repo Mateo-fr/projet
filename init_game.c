@@ -172,3 +172,15 @@ void placePenguin(Hexagon grid[L][C], int nbrPlayer, Player playerList[]) {
     }
 }
 
+int defWinner(Player playerList[], int nbrPlayer) {
+    int maxScore = -1; // Initialise maxScore à -1 pour s'assurer que tout score de joueur sera plus élevé initialement.
+    int winner = -1;   // Initialise winner à -1 pour gérer le cas où il n'y aurait pas de joueurs dans la liste.
+
+    for (int n = 0; n < nbrPlayer; n++) { // Parcourt chaque joueur dans la liste.
+        if (playerList[n].score > maxScore) { // Vérifie si le score du joueur actuel est supérieur à maxScore.
+            maxScore = playerList[n].score; // Met à jour maxScore avec le score du joueur actuel.
+            winner = n; // Met à jour winner avec l'indice du joueur actuel.
+        }
+    }
+    return winner; // Retourne l'indice du joueur ayant le score le plus élevé.
+}
